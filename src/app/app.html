@@ -7,6 +7,9 @@
     </nav>
   </header>
   <main>
+    @if (isLoading()) {
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    }
     <router-outlet></router-outlet>
   </main>
 </div>
