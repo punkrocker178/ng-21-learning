@@ -1,6 +1,12 @@
-<div>
-  <h1>Home page</h1>
-  <p>Welcome to the home page</p>
-  <a routerLink="/dashboard">Dashboard</a>
+<div class="container">
+  <header>
+    <nav>
+      <h1>Sample app</h1>
+      <a routerLink="/about">About</a>
+      <a routerLink="/dashboard">Dashboard</a>
+    </nav>
+  </header>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
 </div>
-<router-outlet></router-outlet>

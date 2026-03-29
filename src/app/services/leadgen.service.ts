@@ -9,7 +9,7 @@ export class LeadgenService {
   private readonly http = inject(HttpClient);
 
 
-  subscribe(name: string, email: string): Observable<boolean> {
+  subscribe(data: { name: string, email: string, message?: string }): Observable<boolean> {
     return of(true);
   }
 }

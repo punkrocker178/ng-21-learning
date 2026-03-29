@@ -1,0 +1,15 @@
+  <form #contactForm="ngForm" (submit)="onSubmit()" class="contact-form">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput type="text" required [(ngModel)]="name" name="name" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput type="email" required [(ngModel)]="email" name="email" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Message</mat-label>
+      <textarea matInput required [(ngModel)]="message" name="message"></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary" [disabled]="!contactForm.valid">Submit</button>
+  </form>
