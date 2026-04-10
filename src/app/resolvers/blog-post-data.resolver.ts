@@ -16,23 +16,23 @@ export const blogPostDataResolver: ResolveFn<Post[]> = async (
     const mockData = [
       {
         title: 'Blog Post Title',
-        content: 'Blog Post Content',
+        body: 'Blog Post Content',
       },
       {
         title: 'Blog Post Title 2',
-        content: 'Blog Post Content 2',
+        body: 'Blog Post Content 2',
       },
       {
         title: 'Blog Post Title 3',
-        content: 'Blog Post Content 3',
+        body: 'Blog Post Content 3',
       },
       {
         title: 'Blog Post Title 4',
-        content: 'Blog Post Content 4',
+        body: 'Blog Post Content 4',
       },
       {
         title: 'Blog Post Title 5',
-        content: 'Blog Post Content 5',
+        body: 'Blog Post Content 5',
       },
     ];
     return mockData;

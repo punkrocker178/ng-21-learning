@@ -18,6 +18,10 @@ export const routes: Routes = [
     },
   },
   {
+    path: 'login',
+    loadComponent: () => import('./components/login-form/login-form').then(m => m.LoginForm),
+  },
+  {
     path: 'about',
     component: About,
   },
