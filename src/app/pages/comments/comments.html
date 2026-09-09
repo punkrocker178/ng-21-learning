@@ -1,0 +1,17 @@
+<div>
+    <mat-form-field [floatLabel]="'always'" class="form-control">
+        <mat-label>Leave a comment</mat-label>
+        <textarea matInput placeholder="Input your comment..." [formField]="commentControl"></textarea>
+    </mat-form-field>
+    <button matButton (click)="comment()">Comment</button>
+    @if (commentsData()?.length == 0) {
+        <p>No comments yet.</p>
+    }
+
+    @for(comment of commentsData(); track comment.id) {
+    <div class="mb-2">
+        <app-comment-box [data]="comment.content"></app-comment-box>
+    </div>
+
+    }
+</div>

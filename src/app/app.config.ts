@@ -8,6 +8,7 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { userReducer } from './state/reducers/user.reducer';
 import { loginEffect } from './state/effects/user.effect';
+import { commentReducer } from './state/reducers/comment.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideStore({
       user: userReducer,
+      comments: commentReducer
     }),
     provideEffects({ loginEffect }),
   ],

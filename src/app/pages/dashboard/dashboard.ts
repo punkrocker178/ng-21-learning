@@ -1,4 +1,4 @@
-import { Component, computed, inject, Signal } from '@angular/core';
+import { Component, computed, effect, inject, Signal } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Post } from '../../models/post';
@@ -16,6 +16,6 @@ export class Dashboard {
   public blogPostData = computed(() => (this._routeData() as Data)['blogPostData'] as unknown as Post[]);
 
   ngOnInit() {
-    console.log(this.blogPostData());
+    console.log(this.blogPostData(), 'on init');
   }
 }
