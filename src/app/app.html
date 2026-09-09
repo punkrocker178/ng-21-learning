@@ -1,16 +1,6 @@
 <div class="container">
   <header>
-    <nav>
-      <h1>Sample app</h1>
-      <a routerLink="/about">About</a>
-      <a routerLink="/dashboard">Dashboard</a>
-      <a routerLink="/comments">Comments</a>
-      @if (!(userState | async)?.email) {
-        <button (click)="login()">Login</button>
-      } @else {
-        <button (click)="logout()">Logout</button>
-      }
-    </nav>
+   <app-navbar></app-navbar>
   </header>
   <main>
     @if (isLoading()) {

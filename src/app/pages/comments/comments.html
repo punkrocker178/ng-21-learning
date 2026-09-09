@@ -10,7 +10,7 @@
 
     @for(comment of commentsData(); track comment.id) {
     <div class="mb-2">
-        <app-comment-box [data]="comment.content"></app-comment-box>
+        <app-comment-box [data]="comment" (deleted)="deleteComment($event)"></app-comment-box>
     </div>
 
     }

@@ -6,6 +6,6 @@ export const CommentAction = createActionGroup({
     'Comment': props<{ content: string }>(),
     'Comment Success': props<{ data: string }>(),
     'Comment Failure': props<{ error: string }>(),
-    'Remove': props<{ id: string }>(),
+    'Remove': props<{ id: number }>(),
   },
 });

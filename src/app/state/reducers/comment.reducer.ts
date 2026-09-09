@@ -13,7 +13,9 @@ export const commentReducer = createReducer(
     return updated;
   }),
   on(CommentAction.remove, (state, { id }) => {
-    const removeIndex = state.findIndex(comment => comment.id === parseInt(id));
-    return [...state.splice(removeIndex, 1)];
+    const removeIndex = state.findIndex(comment => comment.id === id);
+    const updated = [...state];
+    updated.splice(removeIndex, 1);
+    return updated;
   }),
 );

@@ -1,3 +1,7 @@
 <div class="comment">
-    {{data()}}
+    {{data()?.content}}
+
+    <div>
+        <button matButton (click)="deleteComment()">Delete</button>
+    </div>
 </div>

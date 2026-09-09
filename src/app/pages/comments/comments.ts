@@ -35,4 +35,9 @@ export class Comments {
     this.store.dispatch(CommentAction.comment({ content: this.commentControl().value()}));
     this.commentControl().reset('');
   }
+
+  deleteComment(id: number) {
+    console.log(id);
+    this.store.dispatch(CommentAction.remove({ id }));
+  }
 }

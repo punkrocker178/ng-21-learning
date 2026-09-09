@@ -1,0 +1,11 @@
+<nav>
+      <h1>Sample app</h1>
+      <a routerLink="/about" class="mr-1">About</a>
+      <a routerLink="/dashboard" class="mr-1">Dashboard</a>
+      <a routerLink="/comments" class="mr-1">Comments</a>
+      @if (!(userState | async)?.email) {
+        <button matButton (click)="login()">Login</button>
+      } @else {
+        <button matButton (click)="logout()">Logout</button>
+      }
+    </nav>
