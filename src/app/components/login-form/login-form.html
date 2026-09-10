@@ -7,5 +7,8 @@
     <label for="password">Password:</label>
     <input type="password" id="password" [(ngModel)]="password" name="password" required />
   </div>
+  @if (error$ | async; as error) {
+    <p role="alert">{{ error }}</p>
+  }
   <button type="submit">submit</button>
-  </form>
+</form>

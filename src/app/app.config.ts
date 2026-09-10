@@ -7,7 +7,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { userReducer } from './state/reducers/user.reducer';
-import { loginEffect } from './state/effects/user.effect';
+import { loginEffect, logoutEffect } from './state/effects/user.effect';
 import { commentReducer } from './state/reducers/comment.reducer';
 
 export const appConfig: ApplicationConfig = {
@@ -20,6 +20,6 @@ export const appConfig: ApplicationConfig = {
       user: userReducer,
       comments: commentReducer
     }),
-    provideEffects({ loginEffect }),
+    provideEffects({ loginEffect, logoutEffect }),
   ],
 };

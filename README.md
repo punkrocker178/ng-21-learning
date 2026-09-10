@@ -12,6 +12,19 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
+## Local authentication
+
+The SSR server includes a development-only login endpoint with an in-memory session and an HttpOnly cookie. Configure the demo account before starting it:
+
+```bash
+export AUTH_DEMO_EMAIL=demo@example.com
+export AUTH_DEMO_PASSWORD='salt:hash'
+npm run build
+npm run serve:ssr:ng-test-app
+```
+
+Open `http://localhost:4000/login` and use `TestPassword` as the password. The stored value uses `salt:hash` format and the session is cleared when the server restarts; this is not a production authentication system.
+
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:

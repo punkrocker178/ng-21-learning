@@ -4,13 +4,76 @@ import {
   isMainModule,
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
+import 'dotenv/config';
 import express from 'express';
+import { randomBytes, scrypt, timingSafeEqual } from 'node:crypto';
 import { join } from 'node:path';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
+const sessions = new Map<string, string>();
+const sessionCookie = 'session';
+
+const hashPassword = (password: string, salt: Buffer) =>
+  new Promise<Buffer>((resolve, reject) => {
+    scrypt(password, salt, 64, (error, key) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+
+      resolve(key);
+    });
+  });
+
+const passwordMatches = async (password: string, storedHash: string) => {
+  const [saltHex, hashHex] = storedHash.split(':');
+
+  if (!saltHex || !hashHex) {
+    return false;
+  }
+
+  const salt = Buffer.from(saltHex, 'hex');
+  const expectedHash = Buffer.from(hashHex, 'hex');
+  const actualHash = await hashPassword(password, salt);
+
+  return expectedHash.length === actualHash.length && timingSafeEqual(expectedHash, actualHash);
+};
+
+app.use(express.json());
+
+app.post('/api/auth/login', async (req, res) => {
+  const { email, password } = req.body as { email?: string; password?: string };
+  const demoEmail = process.env['AUTH_DEMO_EMAIL'];
+  const demoPasswordHash = process.env['AUTH_DEMO_PASSWORD'];
+
+  if (!demoEmail || !demoPasswordHash || !password || email !== demoEmail || !(await passwordMatches(password, demoPasswordHash))) {
+    res.status(401).json({ message: 'Invalid email or password' });
+    return;
+  }
+
+  const sessionId = randomBytes(32).toString('hex');
+  sessions.set(sessionId, email);
+  res.cookie(sessionCookie, sessionId, { httpOnly: true, sameSite: 'lax' });
+  res.json({ email, userName: email.split('@')[0] });
+});
+
+app.post('/api/auth/logout', (req, res) => {
+  const sessionId = req.headers.cookie
+    ?.split(';')
+    .map((cookie) => cookie.trim())
+    .find((cookie) => cookie.startsWith(`${sessionCookie}=`))
+    ?.slice(sessionCookie.length + 1);
+
+  if (sessionId) {
+    sessions.delete(sessionId);
+  }
+
+  res.clearCookie(sessionCookie, { httpOnly: true, sameSite: 'lax' });
+  res.sendStatus(204);
+});
 
 /**
  * Example Express Rest API endpoints can be defined here.

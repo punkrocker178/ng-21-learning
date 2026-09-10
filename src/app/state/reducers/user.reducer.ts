@@ -6,16 +6,19 @@ import { UserAction } from '../actions/user.action';
 export const initialState: User = {
   email: '',
   userName: '',
+  error: '',
 };
 
 export const userReducer = createReducer(
   initialState,
-  on(UserAction.loginSuccess, (state, { email }) => ({
+  on(UserAction.loginSuccess, (state, { user }) => ({
     ...state,
-    email,
+    ...user,
+    error: '',
   })),
-  on(UserAction.loginFailure, (state) => ({
+  on(UserAction.loginFailure, (state, { error }) => ({
     ...state,
+    error,
   })),
-  on(UserAction.signOut, () => initialState),
+  on(UserAction.signOutSuccess, () => initialState),
 );
